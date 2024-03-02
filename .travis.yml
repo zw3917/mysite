@@ -1,0 +1,39 @@
+language: python
+dist: focal
+python:
+  - "3.8"  # Or any version you're using
+
+before_install:
+  - sudo apt-get install openssl libssl-dev
+
+install:
+  - pip install urllib3==1.26.6
+  - pip install -r requirements.txt
+  - pip install coverage
+  - pip install coveralls
+  - pip install black==24.2.0
+  - pip install flake8==7.0.0
+  - pip install flake8-bugbear==24.2.6
+  - pip install pyyaml
+
+before_script:
+  - python manage.py migrate
+  - python manage.py collectstatic --noinput
+script:
+  - black --check .
+  - flake8 .
+  - coverage run --source=mysite,polls manage.py test
+
+after_script:
+  - coveralls
+
+deploy:
+  provider: elasticbeanstalk
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  region: "us-west-2"
+  app: "app3"
+  env: "travis-env8"
+  bucket_name: "elasticbeanstalk-us-west-2-905418133433"
+  on:
+    branch: main
