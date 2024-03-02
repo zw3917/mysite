@@ -23,7 +23,7 @@ SECRET_KEY = "django-insecure-^+1wut#)d70jp*sl_52^(eyj_p6kjp341s$s))^qra7zvg3(ep
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "travis-env8.eba-fdbgppaq.us-west-2.elasticbeanstalk.com",
+    "deploy1.eba-m3adcuri.us-west-2.elasticbeanstalk.com",
 ]
 
 # Application definition
